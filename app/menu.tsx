@@ -1,22 +1,9 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-
-const MENU_ITEMS = [
-  {
-    id: 1,
-    name: 'Iced Coffee',
-    detail: 'A refreshing cold coffee beverage.',
-  },
-  {
-    id: 2,
-    name: 'Hot Coffee',
-    detail: 'A classic, warm coffee drink.',
-  },
-  {
-    id: 3,
-    name: 'Cafe Latte',
-    detail: 'A smooth blend of coffee and steamed milk.',
-  },
-];
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { MENU_ITEMS } from '@/data/menuItems'
+const handlePress = (itemName: string) => {
+      // ここでボタンがクリックされたときのアクションを実行します
+    console.log(`${itemName} button clicked!`);
+};
 
 export default function MenuScreen() {
   return (
@@ -24,11 +11,14 @@ export default function MenuScreen() {
       <FlatList
         data={MENU_ITEMS}
         keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.listContainer}  // リスト全体にパディングを追加
+        contentContainerStyle={styles.listContainer}  
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <Text style={styles.itemName}>{item.name}</Text>
             <Text style={styles.itemDetail}>{item.detail}</Text>
+            <TouchableOpacity style={styles.button} onPress={() => handlePress(item.name)}>
+                <Text style={styles.buttonText}>add cart</Text>
+            </TouchableOpacity>
           </View>
         )}
       />
@@ -42,27 +32,42 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   listContainer: {
-    paddingHorizontal: 20,  // 横方向のパディング
-    paddingBottom: 20,      // 下方向のパディング
+    paddingHorizontal: 20,  
+    paddingBottom: 20,      
   },
   itemContainer: {
-    backgroundColor: 'white', // アイテムの背景色
-    marginBottom: 15,         // アイテム間のスペース
-    padding: 15,              // アイテムの内側の余白
-    borderRadius: 8,          // 角を丸める
-    shadowColor: '#000',      // アイテムに影をつける
-    shadowOffset: { width: 0, height: 2 },  // 影の位置
-    shadowOpacity: 0.1,       // 影の透明度
-    shadowRadius: 4,          // 影のぼかし具合
-    elevation: 3,             // Androidでの影
+    backgroundColor: 'white', 
+    marginBottom: 15,         
+    padding: 15,              
+    borderRadius: 8,          
+    shadowColor: '#000',     
+    shadowOffset: { width: 0, height: 2 },  
+    shadowOpacity: 0.1,       
+    shadowRadius: 4,          
+    elevation: 3,            
   },
   itemName: {
-    fontSize: 24, // 名前のフォントサイズ
+    fontSize: 24, 
     fontWeight: 'bold',
-    color: '#333', // テキスト色
+    color: '#333', 
   },
   itemDetail: {
-    fontSize: 16, // 詳細のフォントサイズ
-    color: '#777', // 詳細のテキスト色
+    fontSize: 16, 
+    color: '#777', 
+  },
+  button: {
+    backgroundColor: 'orange',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
+
